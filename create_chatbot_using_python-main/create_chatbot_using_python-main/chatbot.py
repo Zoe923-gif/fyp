@@ -5,6 +5,7 @@ import numpy as np
 import re
 import streamlit as st
 from keras.models import load_model
+from PIL import Image
 from nltk.stem import WordNetLemmatizer
 from pymongo import MongoClient
 from bson import ObjectId
@@ -122,11 +123,11 @@ def check_order_number(message):
             return f"Order number {order_id} not found in our database."
     return None
 
-# Helper functions for fabric defect detection
 def preprocess_image(img):
-    img = img.resize((256, 256))  # Resize to match model's expected input size
-    img_array = np.array(img) / 255.0  # Normalize the image
-    img_array = np.expand_dims(img_array, axis=0)
+    img = img.convert("RGB")  
+    img = img.resize((128, 128)) 
+    img_array = np.array(img) / 255.0  
+    img_array = np.expand_dims(img_array, axis=0) 
     return img_array
 
 def predict_defect(img):
@@ -134,6 +135,9 @@ def predict_defect(img):
     try:
         prediction = fabric_model.predict(img_array)
         return prediction
+    except MemoryError as e:
+        st.error(f"MemoryError during fabric defect prediction: {e}")
+        return None
     except Exception as e:
         st.error(f"Error during fabric defect prediction: {e}")
         return None
@@ -144,18 +148,21 @@ st.title("Order Query Chatbot and Fabric Defect Detector")
 # Image upload
 uploaded_image = st.file_uploader("Upload a fabric image for defect detection", type=['png', 'jpg', 'jpeg'])
 if uploaded_image:
-    from PIL import Image
-    image = Image.open(uploaded_image)
-    if st.button("Detect Defect"):
-        prediction = predict_defect(image)
-        if prediction is not None:
-            if prediction[0][0] > 0.5:  # Example threshold for binary classification
-                st.text("The image shows a defect.")
+    try:
+        image = Image.open(uploaded_image)
+        if st.button("Detect Defect"):
+            prediction = predict_defect(image)
+            if prediction is not None:
+                if prediction[0][0] > 0.5:  # Example threshold for binary classification
+                    st.text("The image shows a defect.")
+                else:
+                    st.text("The image appears to be defect-free.")
             else:
-                st.text("The image appears to be defect-free.")
-        else:
-            st.text("Error in defect detection.")
+                st.text("Error in defect detection.")
+    except Exception as e:
+        st.error(f"Error processing image: {e}")
 
+# Chatbot interface
 user_input = st.text_input("You:", "")
 
 if st.button("Send"):
