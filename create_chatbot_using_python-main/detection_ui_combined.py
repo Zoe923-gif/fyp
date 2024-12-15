@@ -145,7 +145,7 @@ def predict_defect_hyperbolic(image, model):
     return prediction
 
 # Streamlit UI
-st.image("C:/Users/User/Downloads/Banner.png")
+st.image("create_chatbot_using_python-main/Banner.png")
 
 # Layout using columns
 col1, col2 = st.columns(2)
