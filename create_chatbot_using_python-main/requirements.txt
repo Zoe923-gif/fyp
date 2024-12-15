@@ -6,7 +6,6 @@ pycocotools
 Pillow
 imblearn
 streamlit
-pdfkit
 hypll
 fpdf
 opencv-python
