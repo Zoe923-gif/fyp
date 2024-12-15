@@ -87,9 +87,9 @@ def save_as_pdf(image_name, prediction_result, model_choice, image_bytes):
         st.error(f"Error creating PDF: {e}")
 
 # Paths to model checkpoints
-seg_model_path = "C:/Users/zoezh/fyp-2/create_chatbot_using_python-main/create_chatbot_using_python-main/segmentation_model.pth"
-dcgan_defect_model_path = 'C:/Users/zoezh/fyp-2/create_chatbot_using_python-main/create_chatbot_using_python-main/dcganResnet_discriminator_6b.pth'
-hyperbolic_defect_model_path = 'C:/Users/zoezh/fyp-2/create_chatbot_using_python-main/create_chatbot_using_python-main/hyperbolic_mscnn_gc.pth'
+seg_model_path = "C:/Users/zoezh/fyp-2/create_chatbot_using_python-main/segmentation_model.pth"
+dcgan_defect_model_path = 'C:/Users/zoezh/fyp-2/create_chatbot_using_python-main/dcganResnet_discriminator_6b.pth'
+hyperbolic_defect_model_path = 'C:/Users/zoezh/fyp-2/create_chatbot_using_python-main/hyperbolic_mscnn_gc.pth'
 
 # Initialize device
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
