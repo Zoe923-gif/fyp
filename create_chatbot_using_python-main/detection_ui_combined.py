@@ -92,10 +92,9 @@ def save_as_pdf(image_name, prediction_result, model_choice, image_bytes, output
         raise RuntimeError(f"Error generating PDF: {e}")
 
 # Paths to model checkpoints
-seg_model_path = "segmentation_model.pth"
-dcgan_defect_model_path = "dcganResnet_discriminator_6b.pth"
-hyperbolic_defect_model_path = "hyperbolic_mscnn_gc.pth"
-
+seg_model_path = os.path.join("create_chatbot_using_python-main", "segmentation_model.pth")
+dcgan_defect_model_path = os.path.join("create_chatbot_using_python-main", "dcganResnet_discriminator_6b.pth")
+hyperbolic_defect_model_path = os.path.join("create_chatbot_using_python-main", "hyperbolic_mscnn_gc.pth")
 # Initialize device
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
