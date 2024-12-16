@@ -92,9 +92,10 @@ def save_as_pdf(image_name, prediction_result, model_choice, image_bytes, output
         raise RuntimeError(f"Error generating PDF: {e}")
 
 # Paths to model checkpoints
-seg_model_path = os.path.join("create_chatbot_using_python-main", "segmentation_model.pth")
-dcgan_defect_model_path = os.path.join("create_chatbot_using_python-main", "dcganResnet_discriminator_6b.pth")
-hyperbolic_defect_model_path = os.path.join("create_chatbot_using_python-main", "hyperbolic_mscnn_gc.pth")
+seg_model_path = 'C:/Users/User/OneDrive/Documents/Wilson/TARUMT/Degree/Year3/fyp/model/segmentation_model.pth'
+dcgan_defect_model_path = 'C:/Users/User/OneDrive/Documents/Wilson/TARUMT/Degree/Year3/fyp/model/dcganResnet_discriminator_6b.pth'
+hyperbolic_defect_model_path = 'C:/Users/User/OneDrive/Documents/Wilson/TARUMT/Degree/Year3/fyp/model/hyperbolic_mscnn_gc(lr2)_.pth'
+
 # Initialize device
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -145,7 +146,7 @@ def predict_defect_hyperbolic(image, model):
     return prediction
 
 # Streamlit UI
-st.image("create_chatbot_using_python-main/Banner.png")
+st.image("C:/Users/User/Downloads/Banner.png")
 
 # Layout using columns
 col1, col2 = st.columns(2)
@@ -238,7 +239,7 @@ if input_image:
 
                     # Generate PDF and get the path
                     pdf_path = save_as_pdf(
-                        image_name="uploaded_image.jpg" if uploaded_image else "captured_image.jpg",
+                        image_name=input_image.name,
                         prediction_result=st.session_state.prediction_result,
                         model_choice=model_choice,
                         image_bytes=image_bytes
