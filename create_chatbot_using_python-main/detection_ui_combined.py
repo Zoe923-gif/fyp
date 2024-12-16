@@ -187,7 +187,7 @@ if input_image:
     col_left, col_right = st.columns([1, 2])
 
     with col_left:
-        st.image(input_image, caption="Your Input Image", use_column_width=True)
+        st.image(input_image, caption="Your Input Image")
 
     with col_right:
         try:
