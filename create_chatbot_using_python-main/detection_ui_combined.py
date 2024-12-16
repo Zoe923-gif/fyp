@@ -160,17 +160,19 @@ with col2:
 
 # # Handle input
 input_image = None
+img_name = None
 if input_choice == "Upload Image":
     uploaded_image = st.file_uploader("Upload an image", type=['jpg', 'png', 'jpeg'])
     if uploaded_image:
         input_image = Image.open(uploaded_image).convert("RGB")
         # Convert the image to bytes
         image_bytes = input_image.tobytes()
+        img_name = "uploaded_image.jpg"
 else:
     camera_image = st.camera_input("Take a picture")
     if camera_image:
         input_image = Image.open(BytesIO(camera_image.getvalue())).convert("RGB")  # Handle BytesIO for camera input
-        #image_bytes = camera_image.getvalue()
+        img_name = "captured_image.jpg"
 
 # Check if session state keys exist; initialize if not
 if "prediction_result" not in st.session_state:
@@ -239,7 +241,7 @@ if input_image:
 
                     # Generate PDF and get the path
                     pdf_path = save_as_pdf(
-                        image_name=input_image.name,
+                        image_name=img_name,
                         prediction_result=st.session_state.prediction_result,
                         model_choice=model_choice,
                         image_bytes=image_bytes
