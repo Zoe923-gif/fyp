@@ -158,9 +158,9 @@ with col1:
 with col2:
     input_choice = st.radio("Select the image input method:", ("Upload Image", "Use Camera"))
 
-# Track the last uploaded or captured image to reset session state when a new image is uploaded
-if "last_image" not in st.session_state:
-    st.session_state.last_image = None  # Stores the last uploaded/captured image as bytes
+# # Track the last uploaded or captured image to reset session state when a new image is uploaded
+# if "last_image" not in st.session_state:
+#     st.session_state.last_image = None  # Stores the last uploaded/captured image as bytes
 # Check if session state keys exist; initialize if not
 if "prediction_result" not in st.session_state:
     st.session_state.prediction_result = None
@@ -172,7 +172,7 @@ if "messages" not in st.session_state:
 # # Handle input
 input_image = None
 img_name = None
-image_changed = False  # Flag to track if the input image has changed
+# image_changed = False  # Flag to track if the input image has changed
 if input_choice == "Upload Image":
     uploaded_image = st.file_uploader("Upload an image", type=['jpg', 'png', 'jpeg'])
     if uploaded_image:
@@ -180,25 +180,25 @@ if input_choice == "Upload Image":
         # Convert the image to bytes
         image_bytes = input_image.tobytes()
         img_name = "uploaded_image.jpg"
-        current_image_bytes = uploaded_image.getvalue()
-        if st.session_state.last_image != current_image_bytes:
-            st.session_state.last_image = current_image_bytes
-            image_changed = True  # Mark that the image has changed
+        # current_image_bytes = uploaded_image.getvalue()
+        # if st.session_state.last_image != current_image_bytes:
+        #     st.session_state.last_image = current_image_bytes
+        #     image_changed = True  # Mark that the image has changed
 else:
     camera_image = st.camera_input("Take a picture")
     if camera_image:
         input_image = Image.open(BytesIO(camera_image.getvalue())).convert("RGB")  # Handle BytesIO for camera input
         img_name = "captured_image.jpg"
-        current_image_bytes = camera_image.getvalue()
-        if st.session_state.last_image != current_image_bytes:
-            st.session_state.last_image = current_image_bytes
-            image_changed = True  # Mark that the image has changed
+        # current_image_bytes = camera_image.getvalue()
+        # if st.session_state.last_image != current_image_bytes:
+        #     st.session_state.last_image = current_image_bytes
+        #     image_changed = True  # Mark that the image has changed
 
 # Reset session state if the image has changed
-if image_changed:
-    st.session_state.prediction_result = None
-    st.session_state.report_ready = False
-    st.session_state.messages = []
+# if image_changed:
+#     st.session_state.prediction_result = None
+#     st.session_state.report_ready = False
+#     st.session_state.messages = []
 
 # Main layout for image processing and PDF generation
 if input_image:
